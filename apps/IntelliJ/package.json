@@ -1,0 +1,12 @@
+{
+  "name" : "IntelliJ IDEA",
+  "author" : "JetBrains",
+  "description" : "An open source IDE for java and kotlin",
+  "version" : "2022.2.2",
+  "dependencies": {
+    "openjdk" : "*"
+  },
+  "install" : {
+    "*" : "install.sh"
+  }
+}

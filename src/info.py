@@ -19,7 +19,7 @@ if len(args) == 1:
     print("No package specified")
     exit(0)
 
-repo = "file:///home/declan/Projects/abyss-apps/apps/"
+repo = "file:///etc/minpin/apps/"
 
 applist = request(repo + "apps.list").split()
 

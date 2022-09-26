@@ -1,0 +1,21 @@
+#!/bin/bash
+
+SRC=/etc/minpin/src
+VER="0.1.0"
+COMM="$0"
+
+if [ -z "$1" ]; then
+  echo "-------- MinPin $VER --------"
+  printf "(Miniature Package Installer)\n\n"
+  echo "  $COMM install <package>"
+  printf "    installs the specified package\n\n"
+  echo "  $COMM remove <package>"
+  printf "    removes the specified package\n\n"
+  echo "  $COMM search <query>"
+  printf "    lists all packages containing the query term\n\n"
+  echo "  $COMM info <package>"
+  printf "    prints info about the specified package\n\n"
+  exit
+fi
+
+sudo python3 "$SRC/$1.py" $2

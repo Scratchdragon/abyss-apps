@@ -4,7 +4,7 @@ import os
 import json
 import platform
 
-home = "/home/declan/Projects/abyss-apps/"
+home = "/etc/minpin/"
 exe = home + "bin"
 tmp = home + "tmp"
 conf = home + "conf"
@@ -51,7 +51,7 @@ if len(args) == 1:
     print("No package specified")
     exit(0)
 
-repo = "file:///home/declan/Projects/abyss-apps/apps/"
+repo = "file:///etc/minpin/apps/"
 
 applist = request(repo + "apps.list").split()
 

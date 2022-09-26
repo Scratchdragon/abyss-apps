@@ -2,6 +2,11 @@ import requests
 import sys
 import json
 
+home = "/home/declan/Projects/abyss-apps/"
+exe = home + "bin"
+tmp = home + "tmp"
+conf = home + "conf"
+
 
 def request(url):
     if url.startswith("file:///"):
@@ -11,6 +16,13 @@ def request(url):
         return ret
     else:
         return requests.get(url)
+
+
+def resolve_dep(dependency, version):
+    print("Getting alias for dependency '" + dependency + "' of version '" + version + "'")
+    file = open(conf + "/pkg-alias.json", "r")
+    data = json.loads(file.read())
+
 
 
 args = sys.argv
@@ -31,17 +43,11 @@ for item in applist:
 if truename != "":
     rawdata = request(repo + truename + "/package.json")
     data = json.loads(rawdata)
-    print("Package " + data["name"])
-    print("-" * len("Package " + data["name"]))
-    print("  Author:")
-    print("    " + data["author"])
-    print("  Version:")
-    print("    " + data["version"])
-    print("  Description:")
-    print("    " + data["description"])
-    print("  Depends on:")
-    dependencies = data["dependencies"]
-    for key in dependencies.keys():
-        print("    " + key + " " + dependencies[key])
+    # Constructing command
+    command = "name='" + data["name"] + "' version='" + data["version"] + "' BIN=" + exe + "' bash " + tmp + "/install.sh"
+    # Download install script
+    file = open(tmp + "/install.sh", "w")
+    file.write(request(repo + truename + "/install.sh"))
+    file.close()
 else:
     print("Package not found")

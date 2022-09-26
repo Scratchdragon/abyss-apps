@@ -1,0 +1,12 @@
+{
+  "python" : {
+    "*" : "python3",
+    "3" : "python3",
+    "2" : "python2"
+  },
+  "openjdk" : {
+    "*" : "openjdk-17-jdk",
+    "17" : "openjdk-17-jdk",
+    "11" : "openjdk-11-jdk"
+  }
+}

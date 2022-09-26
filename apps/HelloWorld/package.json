@@ -1,0 +1,15 @@
+{
+  "name" : "Hello World,
+  "author" : "Abyss",
+  "description" : "A test package",
+  "version" : "1.0.0",
+  "note" : "Run 'helloworld' to check if Abyss Apps is setup correctly",
+  "dependencies": {
+  },
+  "install" : {
+    "*" : "install.sh"
+  },
+  "remove": {
+    "*" : "remove.sh"
+  }
+}

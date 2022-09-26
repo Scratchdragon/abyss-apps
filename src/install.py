@@ -22,7 +22,12 @@ def resolve_dep(dependency, version):
     print("Getting alias for dependency '" + dependency + "' of version '" + version + "'")
     file = open(conf + "/pkg-alias.json", "r")
     data = json.loads(file.read())
-
+    try:
+        alias = data[dependency][version]
+        print("Found apt package '" + alias + "'")
+    except Exception as e:
+        print("No apt package found for dependency. Aborting")
+        exit(0)
 
 
 args = sys.argv
@@ -49,5 +54,8 @@ if truename != "":
     file = open(tmp + "/install.sh", "w")
     file.write(request(repo + truename + "/install.sh"))
     file.close()
+    # Dependencies
+    for pkg in data["dependencies"]:
+        resolve_dep(pkg, data["dependencies"][pkg])
 else:
     print("Package not found")

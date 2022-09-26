@@ -9,5 +9,8 @@
   },
   "install" : {
     "*" : "install.sh"
+  },
+  "remove" : {
+    "*" : "remove.sh"
   }
 }

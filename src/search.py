@@ -1,6 +1,7 @@
 import requests
 import sys
 import json
+import os
 
 
 def request(url):
@@ -13,23 +14,25 @@ def request(url):
         return requests.get(url)
 
 
+home = os.getenv("SRC") + "/"
 args = sys.argv
 
 if len(args) == 1:
     args.append("")
 
-repo = "file:///etc/minpin/apps/"
+file = open(home + "conf/repo-list.json")
+repo_list = json.loads(file.read())
+file.close()
 
-applist = request(repo + "apps.list").split()
+for repo_name in repo_list:
+    repo = repo_list[repo_name]
+    applist = request(repo + "apps.list").split()
 
-found = []
-for item in applist:
-    if args[1].lower() in item.lower():
-        found.append(item)
-        rawdata = request(repo + item + "/package.json")
-        data = json.loads(rawdata)
-        print(item + " - " + data["version"])
-        print("  " + data["description"] + "\n")
-
-if len(found) == 0:
-    print("No package found")
+    found = []
+    for item in applist:
+        if args[1].lower() in item.lower():
+            found.append(item)
+            rawdata = request(repo + item + "/package.json")
+            data = json.loads(rawdata)
+            print(item + " - " + data["version"])
+            print("  " + data["description"] + "\n")

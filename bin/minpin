@@ -1,8 +1,8 @@
 #!/bin/bash
 
-SRC=/etc/minpin/src
+SRC=/etc/minpin
 VER="0.1.0"
-COMM="$0"
+COMM="minpin"
 
 if [ -z "$1" ]; then
   echo "-------- MinPin $VER --------"
@@ -18,4 +18,4 @@ if [ -z "$1" ]; then
   exit
 fi
 
-sudo python3 "$SRC/$1.py" $2
+sudo SRC="$SRC" python3 "$SRC/src/$1.py" ${@:2}

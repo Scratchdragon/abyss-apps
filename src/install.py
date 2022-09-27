@@ -4,7 +4,11 @@ import os
 import json
 import platform
 
-home = "/etc/minpin/"
+if os.getenv("SRC") is None:
+    print("$SRC is not defined, cannot locate minpin config")
+    exit(-1)
+
+home = os.getenv("SRC") + "/"
 exe = home + "bin"
 tmp = home + "tmp"
 conf = home + "conf"
@@ -51,14 +55,22 @@ if len(args) == 1:
     print("No package specified")
     exit(0)
 
-repo = "file:///etc/minpin/apps/"
-
-applist = request(repo + "apps.list").split()
-
+repo = ""
 truename = ""
-for item in applist:
-    if item.lower() == args[1].lower():
-        truename = item
+
+file = open(home + "conf/repo-list.json")
+repo_list = json.loads(file.read())
+file.close()
+
+for repo_name in repo_list:
+    trepo = repo_list[repo_name]
+    applist = request(trepo + "apps.list").split()
+
+    found = []
+    for item in applist:
+        if args[1].lower() == item.lower():
+            truename = item
+            repo = trepo
 
 if truename != "":
     print("Getting package data")
